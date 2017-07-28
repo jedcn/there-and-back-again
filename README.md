@@ -18,6 +18,8 @@ create-markdown-from-config --config-file config.json
 Now you'll have a file named `config.md` that has a single
 triple-fenced block of code in it.
 
+This block of code will contain the entire contents of `config.json`.
+
 You should check both files into version control
 
 ## Updates to your config file
