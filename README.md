@@ -20,7 +20,7 @@ triple-fenced block of code in it.
 
 This block of code will contain the entire contents of `config.json`.
 
-You should check both files into version control
+You should check both files into version control.
 
 ## Updates to your config file
 

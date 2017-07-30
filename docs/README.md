@@ -30,8 +30,8 @@ Acceptance tests are described in `gherkin`, and the runner of these tests in wr
 Given that `node` and `ruby` are involved, you get going locally with the following:
 
 ```sh
-npm install     # Setup Node
-bundle          # Setup Ruby
+npm install              # Setup Node
+bundle                   # Setup Ruby
 ```
 
 And you can know that you've got a functional environment with the following:
@@ -39,7 +39,11 @@ And you can know that you've got a functional environment with the following:
 ```sh
 npm run lint             # Lint JavaScript
 npm run test             # Unit Tests
-bundle exec cucumber     # Acceptance Tests
+rake acceptance_tests    # Acceptance Tests
 ```
 
+## Badges
 
+* [![Code Climate](https://codeclimate.com/github/jedcn/there-and-back-again/badges/gpa.svg)](https://codeclimate.com/github/jedcn/there-and-back-again)
+* [![Test Coverage](https://codeclimate.com/github/jedcn/there-and-back-again/badges/coverage.svg)](https://codeclimate.com/github/jedcn/there-and-back-again
+* [![Issue Count](https://codeclimate.com/github/jedcn/there-and-back-again/badges/issue_count.svg)](https://codeclimate.com/github/jedcn/there-and-back-again)
