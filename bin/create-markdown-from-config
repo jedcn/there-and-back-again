@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+const minimist = require('minimist');
+const argv = require('minimist')(process.argv.slice(2));
+
+const readFile = require('../lib/readFile').readFile
+
+if (argv.help) {
+  console.log("\nUsage:\n  create-markdown-from-config --config-file <CONFIG_FILE>\n");
+} else {
+  const configFile = argv['config-file'];
+  readFile(configFile)
+    .then(function(contents) {
+      const writeFile = require('../lib/writeFile').writeFile
+      const initMarkdown = require('../lib/initMarkdown').initMarkdown
+      const markdownFile = `${configFile}.md`;
+      writeFile(markdownFile, initMarkdown(configFile, contents));
+    });
+}

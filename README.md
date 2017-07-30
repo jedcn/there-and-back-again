@@ -58,3 +58,9 @@ Your config will remain machine/program readable and usable, while
 your markdown can be shared with your friends.
 
 Markdown files can also be used to build websites!
+
+## Interested?
+
+[Learn More..](./docs/README.md)
+
+

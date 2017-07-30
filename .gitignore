@@ -57,3 +57,11 @@ typings/
 # dotenv environment variables file
 .env
 
+# Ruby
+Gemfile.lock
+
+# Cucumber
+cucumber_results.html
+
+# tmp
+tmp
