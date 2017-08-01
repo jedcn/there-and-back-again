@@ -45,17 +45,17 @@ Next, you can extract the distinct code blocks you just created back
 to the config:
 
 ```sh
-update-config-from-markdown --markdown-file config.md --config-file config.json
+extract-config-from-markdown --markdown-file config.md --config-file config.json
 ```
 
 ## The cycle continues
 
-You can continue to modify either the config or the markdown and use
-these two commands `update-config-from-markdown` and `update-
-markdown-from-config` to go back and forth.
+You can continue to modify either the config or the markdown and use these two
+commands `extract-config-from-markdown` and `update-markdown-from-config` to go
+back and forth.
 
-Your config will remain machine/program readable and usable, while
-your markdown can be shared with your friends.
+Your config will remain machine/program readable and usable, while your
+markdown can be shared with your friends.
 
 Markdown files can also be used to build websites!
 
