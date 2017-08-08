@@ -45,5 +45,5 @@ rake acceptance_tests    # Acceptance Tests
 ## Badges
 
 * [![Code Climate](https://codeclimate.com/github/jedcn/there-and-back-again/badges/gpa.svg)](https://codeclimate.com/github/jedcn/there-and-back-again)
-* [![Test Coverage](https://codeclimate.com/github/jedcn/there-and-back-again/badges/coverage.svg)](https://codeclimate.com/github/jedcn/there-and-back-again
+* [![Test Coverage](https://codeclimate.com/github/jedcn/there-and-back-again/badges/coverage.svg)](https://codeclimate.com/github/jedcn/there-and-back-again)
 * [![Issue Count](https://codeclimate.com/github/jedcn/there-and-back-again/badges/issue_count.svg)](https://codeclimate.com/github/jedcn/there-and-back-again)

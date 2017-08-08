@@ -62,6 +62,7 @@ Feature: extract-config-from-markdown
     let mapleader = " "
     """
 
+  Scenario: A config file does not exist and is created anew
     Given a file named "config.json.md" with:
     """
     # config.json

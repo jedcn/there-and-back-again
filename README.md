@@ -15,8 +15,8 @@ follows:
 create-markdown-from-config --config-file config.json
 ```
 
-Now you'll have a file named `config.md` that has a single
-triple-fenced block of code in it.
+Now you'll have a file named `config.json.md` that has a single triple-fenced
+block of code in it.
 
 This block of code will contain the entire contents of `config.json`.
 
@@ -27,10 +27,10 @@ You should check both files into version control.
 Next up, you edit `config.json` for whatever reason with whatever tool
 you chose.
 
-You can (and should) keep `config.md` in sync as follows:
+You can (and should) keep `config.json.md` in sync as follows:
 
 ```sh
-update-markdown-from-config --markdown-file config.md --config-file config.json
+update-markdown-from-config --markdown-file config.json.md --config-file config.json
 ```
 
 ## Updates to your markdown file
@@ -45,7 +45,7 @@ Next, you can extract the distinct code blocks you just created back
 to the config:
 
 ```sh
-extract-config-from-markdown --markdown-file config.md --config-file config.json
+extract-config-from-markdown --markdown-file config.json.md --config-file config.json
 ```
 
 ## The cycle continues
