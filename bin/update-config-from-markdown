@@ -3,7 +3,7 @@
 const minimist = require('minimist');
 const argv = require('minimist')(process.argv.slice(2));
 
-const readFile = require('../lib/readFile').readFile
+const readFile = require('../lib/util/readFile').readFile
 
 if (argv.help) {
   console.log("\nUsage:\n  extract-config-from-markdown --markdown-file <MARKDOWN_FILE> --config-file <CONFIG_FILE>\n");
@@ -12,7 +12,7 @@ if (argv.help) {
   const configFile = argv['config-file'];
   readFile(markdownFile)
     .then(function(markdownContent) {
-      const writeFile = require('../lib/writeFile').writeFile
+      const writeFile = require('../lib/util/writeFile').writeFile
       const extractConfigFromMarkdown = require('../lib/extractConfigFromMarkdown').extractConfigFromMarkdown
       writeFile(configFile, extractConfigFromMarkdown(markdownContent));
     });

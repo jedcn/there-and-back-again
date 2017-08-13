@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "ci-report-coverage": "codeclimate-test-reporter < coverage/lcov.info",
-    "lint": "./node_modules/.bin/eslint lib bin gulpfile.js",
-    "lint-fix": "./node_modules/.bin/eslint --fix lib bin gulpfile.js",
+    "lint": "./node_modules/.bin/eslint lib bin test gulpfile.js",
+    "lint-fix": "./node_modules/.bin/eslint --fix lib bin test gulpfile.js",
     "test": "gulp test"
   },
   "repository": {
