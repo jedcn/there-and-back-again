@@ -16,7 +16,7 @@ describe('markdownParser', function () {
           done()
         })
       })
-      fit('should merge multiple code blocks', function (done) {
+      it('should merge multiple code blocks', function (done) {
         readFiles('./test/files/lib/markdownParser', [
           'triple-ticks/multiple-code-blocks.md',
           'multiple-code-blocks'
