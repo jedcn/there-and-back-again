@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+
+const minimist = require('minimist')
+const argv = require('minimist')(process.argv.slice(2))
+
+const readFiles = require('../lib/util/readFiles').readFiles
+const writeFile = require('../lib/util/writeFile').writeFile
+
+const compareConfigs = require('../lib/compareConfigs').compareConfigs
+const updateMarkdownWithDifferences = require('../lib/updateMarkdownWithDifferences').updateMarkdownWithDifferences
+const extractConfigFromMarkdown = require('../lib/extractConfigFromMarkdown').extractConfigFromMarkdown
+
+if (argv.help) {
+  console.log("\nUsage:\n  update-markdown-from-config --config-file <CONFIG_FILE> --markdown-file <MARKDOWN_FILE>\n")
+} else {
+  const markdownFile = argv['markdown-file']
+  const configFile = argv['config-file']
+  readFiles('.', [
+    markdownFile,
+    configFile
+  ])
+  .then(function (results) {
+    const [ oldMarkdown, newConfig ] = results
+    const oldConfig = extractConfigFromMarkdown(oldMarkdown)
+    const configDifferences = compareConfigs(oldConfig, newConfig)
+    const newMarkdown = updateMarkdownWithDifferences(oldMarkdown, configDifferences)
+    writeFile(markdownFile, newMarkdown);
+  })
+  .catch(function(err) {
+    console.error("Ack!", err)
+  });
+}

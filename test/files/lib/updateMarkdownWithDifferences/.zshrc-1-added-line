@@ -1,0 +1,4 @@
+ZSH=$HOME/.oh-my-zsh
+DISABLE_CORRECTION="true"
+plugins=(git)
+ZSH_THEME="sorin"
