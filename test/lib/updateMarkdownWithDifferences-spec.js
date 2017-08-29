@@ -15,7 +15,7 @@ describe('updateMarkdownWithDifferences', function () {
       const [ oldMarkdown, newConfig, newMarkdown ] = results
       const oldConfig = extractConfigFromMarkdown(oldMarkdown)
       const patches = compareConfigs(oldConfig, newConfig)
-      const result = updateMarkdownWithDifferences(oldMarkdown, patches)
+      const { newMarkdown: result } = updateMarkdownWithDifferences(oldMarkdown, patches)
       expect(result).toEqual(newMarkdown)
       done()
     })
@@ -29,7 +29,7 @@ describe('updateMarkdownWithDifferences', function () {
       const [ oldMarkdown, newConfig, newMarkdown ] = results
       const oldConfig = extractConfigFromMarkdown(oldMarkdown)
       const patches = compareConfigs(oldConfig, newConfig)
-      const result = updateMarkdownWithDifferences(oldMarkdown, patches)
+      const { newMarkdown: result } = updateMarkdownWithDifferences(oldMarkdown, patches)
       expect(result).toEqual(newMarkdown)
       done()
     })
@@ -43,7 +43,7 @@ describe('updateMarkdownWithDifferences', function () {
       const [ oldMarkdown, newConfig, newMarkdown ] = results
       const oldConfig = extractConfigFromMarkdown(oldMarkdown)
       const patches = compareConfigs(oldConfig, newConfig)
-      const result = updateMarkdownWithDifferences(oldMarkdown, patches)
+      const { newMarkdown: result } = updateMarkdownWithDifferences(oldMarkdown, patches)
       expect(result).toEqual(newMarkdown)
       done()
     })

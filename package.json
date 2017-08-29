@@ -1,6 +1,6 @@
 {
   "name": "there-and-back-again",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Two-way literate programming between markdown and config files.",
   "main": "index.js",
   "scripts": {
@@ -28,6 +28,7 @@
   "homepage": "https://github.com/jedcn/there-and-back-again#readme",
   "dependencies": {
     "bluebird": "^3.5.0",
+    "chalk": "^2.1.0",
     "diff-match-patch": "^1.0.0",
     "immutable": "^3.8.1",
     "minimist": "^1.2.0"
