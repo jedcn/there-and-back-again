@@ -1,56 +1,19 @@
 #!/usr/bin/env node
 
-const argv = require('minimist')(process.argv.slice(2))
+const processArgs = require('../lib/update-markdown-from-config/processArgs')
+const splitFileIntoListOfLines = require('../lib/util/splitFileIntoListOfLines')
+const updateMarkdown = require('../lib/update-markdown-from-config/updateMarkdown')
+const writeFile = require('../lib/util/writeFile')
 
-const chalk = require('chalk')
-const report = {
-  info: (s) => console.log(chalk.blue(s)),
-  success: (s) => console.log(chalk.green(s)),
-  problem: (s) => console.log(chalk.red(s))
-}
-
-const readFiles = require('../lib/util/readFiles').readFiles
-const writeFile = require('../lib/util/writeFile').writeFile
-const analyzeResults = require('../lib/analyzeResults').analyzeResults
-const analyzePatches = require('../lib/analyzePatches').analyzePatches
-
-const compareConfigs = require('../lib/compareConfigs').compareConfigs
-const updateMarkdownWithDifferences = require('../lib/updateMarkdownWithDifferences').updateMarkdownWithDifferences
-const extractConfigFromMarkdown = require('../lib/extractConfigFromMarkdown').extractConfigFromMarkdown
-
-if (argv.help) {
-  console.log('\nUsage:\n  update-markdown-from-config --config-file <CONFIG_FILE> --markdown-file <MARKDOWN_FILE> [--force true]\n')
-} else {
-  const markdownFile = argv['markdown-file']
-  const configFile = argv['config-file']
-
-  readFiles('.', [
-    markdownFile,
-    configFile
-  ])
-    .then(function (results) {
-      const [ oldMarkdown, newConfig ] = results
-      const oldConfig = extractConfigFromMarkdown(oldMarkdown)
-      const patches = compareConfigs(oldConfig, newConfig)
-      analyzePatches({ patches, report })
-      const { newMarkdown, patchResults } = updateMarkdownWithDifferences(oldMarkdown, patches)
-      analyzeResults({ patches, patchResults, report })
-      const configInNewMarkdown = extractConfigFromMarkdown(newMarkdown)
-      if (configInNewMarkdown === newConfig) {
-        writeFile(markdownFile, newMarkdown)
-      } else {
-        report.problem('Rut ro! Could not correctly create markdown file.')
-        report.problem('The code blocks in the new markdown do not match the config.')
-        if (argv['force'] === 'true') {
-          report.info('Writing out markdown file because --force true is present.')
-          writeFile(markdownFile, newMarkdown)
-        } else {
-          report.problem('Refusing to update the markdown. Add "--force true" to override.')
-          process.exit(1)
-        }
-      }
-    })
-    .catch(function (err) {
-      console.error('Ack!', err)
-    })
-}
+processArgs(process.argv)
+  .then(({ markdownFile, configFile }) => {
+    Promise.all([
+      splitFileIntoListOfLines(markdownFile),
+      splitFileIntoListOfLines(configFile)
+    ])
+      .then(([markdownLines, configLines]) => {
+        const newMarkdownContent = updateMarkdown(markdownLines, configLines)
+        writeFile(markdownFile, newMarkdownContent)
+      })
+  })
+  .catch((err) => { console.log(err) })

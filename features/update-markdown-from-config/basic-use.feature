@@ -7,126 +7,90 @@ Feature: update-markdown-from-config
   the code blocks in the markdown file.
 
   Scenario: A markdown file exists, a config file was extracted from it, and the config file has changed
-  Given a file named ".zshrc" with:
+    Given a file named "config.json" with:
     """
-    ZSH=$HOME/.oh-my-zsh
-    DISABLE_CORRECTION="true"
-    plugins=()
-    ZSH_THEME="sorin"
-    source $ZSH/oh-my-zsh.sh
-    alias b='bundle'
-    alias bec='bundle exec cucumber'
-    alias gcom='git checkout master'
-    alias gdom='git diff origin/master'
-    alias gpom='git push origin master'
-    alias grom='git reset --hard origin/master'
-
+    // My Config
+    {
+      //  Display values
+      "color": "red",
+      "syntax_highlight": true,
+      //  Command values
+      "saveOnClose": true,
+      "saveOnTabSwitch": false
+    // In Closing
+    }
     """
-  And a file named ".zshrc.md" with:
+    And a file named "config.json.md" with:
     """
-    # .zshrc config
+    # My Config
 
-    ## Necessary Setup
-
-    I'm not sure what these are-- but they were here when I got here.
+    This is my editor config.
 
     ```
-    ZSH=$HOME/.oh-my-zsh
+    {
     ```
 
-    ## Plugins
+    ## Display values
 
-    I only use a single plugin: git
+    I like the color blue.
 
-    ```
-    plugins=(git)
-    ```
-
-    ## Theme
-
-    This theme is nice on the eyes.
+    I don't like syntax highlighting.
 
     ```
-    ZSH_THEME="sorin"
+      "color": "blue",
+      "syntax_highlight": false,
     ```
 
-    ## OH MY ZSH
+    ## Command values
+
+    I like to save all the time.
 
     ```
-    source $ZSH/oh-my-zsh.sh
+      "saveOnClose": true,
+      "saveOnTabSwitch": true
     ```
 
-    ## Aliass
-
-    First we deal with bundle..
+    # In Closing
 
     ```
-    alias b='bundle'
-    alias be='bundle exec'
-    alias bec='bundle exec cucumber'
-    ```
-
-    And then we deal with some git stuff..
-
-    ```
-    alias gcom='git checkout master'
-    alias gdom='git diff origin/master'
-    alias gpom='git push origin master'
-    alias grom='git reset origin/master'
+    }
     ```
     """
-    When I run `update-markdown-from-config --markdown-file .zshrc.md --config-file .zshrc`
+    When I run `update-markdown-from-config --markdown-file config.json.md --config-file config.json`
     Then the exit status should be 0
-    Then the file ".zshrc.md" should contain:
+    Then the file "config.json.md" should contain:
     """
-    # .zshrc config
+    # My Config
 
-    ## Necessary Setup
-
-    I'm not sure what these are-- but they were here when I got here.
+    This is my editor config.
 
     ```
-    ZSH=$HOME/.oh-my-zsh
+    {
     ```
 
-    ## Plugins
+    ## Display values
 
-    I only use a single plugin: git
+    I like the color blue.
 
-    ```
-    DISABLE_CORRECTION="true"
-    plugins=()
-    ```
-
-    ## Theme
-
-    This theme is nice on the eyes.
+    I don't like syntax highlighting.
 
     ```
-    ZSH_THEME="sorin"
+      "color": "red",
+      "syntax_highlight": true,
     ```
 
-    ## OH MY ZSH
+    ## Command values
+
+    I like to save all the time.
 
     ```
-    source $ZSH/oh-my-zsh.sh
+      "saveOnClose": true,
+      "saveOnTabSwitch": false
     ```
 
-    ## Aliass
-
-    First we deal with bundle..
+    # In Closing
 
     ```
-    alias b='bundle'
-    alias bec='bundle exec cucumber'
-    ```
-
-    And then we deal with some git stuff..
-
-    ```
-    alias gcom='git checkout master'
-    alias gdom='git diff origin/master'
-    alias gpom='git push origin master'
-    alias grom='git reset --hard origin/master'
+    }
     ```
     """

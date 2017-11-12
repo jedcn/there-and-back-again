@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "ci-report-coverage": "codeclimate-test-reporter < coverage/lcov.info",
-    "lint": "./node_modules/.bin/eslint lib bin test gulpfile.js",
-    "lint-fix": "./node_modules/.bin/eslint --fix lib bin test gulpfile.js",
+    "lint": "./node_modules/.bin/eslint lib bin/* test gulpfile.js",
+    "lint-fix": "./node_modules/.bin/eslint --fix lib bin/* test gulpfile.js",
     "test": "gulp test"
   },
   "repository": {
@@ -28,8 +28,6 @@
   "homepage": "https://github.com/jedcn/there-and-back-again#readme",
   "dependencies": {
     "bluebird": "^3.5.0",
-    "chalk": "^2.1.0",
-    "diff-match-patch": "^1.0.0",
     "immutable": "^3.8.1",
     "minimist": "^1.2.0"
   },

@@ -1,19 +1,23 @@
 #!/usr/bin/env node
 
-const minimist = require('minimist');
-const argv = require('minimist')(process.argv.slice(2));
+const readFile = require('../lib/util/readFile')
+const writeFile = require('../lib/util/writeFile')
+const processArgs = require('../lib/create-markdown-from-config/processArgs')
+const initMarkdown = require('../lib/create-markdown-from-config/initMarkdown')
 
-const readFile = require('../lib/util/readFile').readFile
-
-if (argv.help) {
-  console.log("\nUsage:\n  create-markdown-from-config --config-file <CONFIG_FILE>\n");
-} else {
-  const configFile = argv['config-file'];
-  readFile(configFile)
-    .then(function(contents) {
-      const writeFile = require('../lib/util/writeFile').writeFile
-      const initMarkdown = require('../lib/initMarkdown').initMarkdown
-      const markdownFile = `${configFile}.md`;
-      writeFile(markdownFile, initMarkdown(configFile, contents));
-    });
+const readConfig = ({ configFile }) => {
+  return readFile(configFile)
+    .then((configContent) => {
+      return { configContent, configFile }
+    })
 }
+
+const writeInitializedMarkdown = ({ configContent, configFile }) => {
+  const markdownFile = `${configFile}.md`
+  writeFile(markdownFile, initMarkdown(configFile, configContent))
+}
+
+processArgs(process.argv)
+  .then(readConfig)
+  .then(writeInitializedMarkdown)
+  .catch((err) => { console.log(err) })

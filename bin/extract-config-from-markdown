@@ -1,19 +1,28 @@
 #!/usr/bin/env node
 
-const minimist = require('minimist');
-const argv = require('minimist')(process.argv.slice(2));
+const processArgs = require('../lib/extract-config-from-markdown/processArgs')
+const readFile = require('../lib/util/readFile')
+const writeFile = require('../lib/util/writeFile')
+const extractConfig = require('../lib/extract-config-from-markdown/extractConfig')
 
-const readFile = require('../lib/util/readFile').readFile
-
-if (argv.help) {
-  console.log("\nUsage:\n  extract-config-from-markdown --markdown-file <MARKDOWN_FILE> --config-file <CONFIG_FILE>\n");
-} else {
-  const markdownFile = argv['markdown-file'];
-  const configFile = argv['config-file'];
-  readFile(markdownFile)
-    .then(function(markdownContent) {
-      const writeFile = require('../lib/util/writeFile').writeFile
-      const extractConfigFromMarkdown = require('../lib/extractConfigFromMarkdown').extractConfigFromMarkdown
-      writeFile(configFile, extractConfigFromMarkdown(markdownContent));
-    });
+const readMarkdown = ({ markdownFile, configFile }) => {
+  return readFile(markdownFile)
+    .then((markdownContent) => {
+      return { markdownContent, configFile }
+    })
 }
+
+const extractConfigFromMarkdown = ({ markdownContent, configFile }) => {
+  const extractedConfig = extractConfig(markdownContent)
+  return { extractedConfig, configFile }
+}
+
+const writeExtractedConfig = ({ configFile, extractedConfig }) => {
+  writeFile(configFile, extractedConfig)
+}
+
+processArgs(process.argv)
+  .then(readMarkdown)
+  .then(extractConfigFromMarkdown)
+  .then(writeExtractedConfig)
+  .catch((err) => { console.log(err) })

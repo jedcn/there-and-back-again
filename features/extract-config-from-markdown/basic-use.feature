@@ -6,110 +6,43 @@ Feature: extract-config-from-markdown
   extracting (writing out) these changes to the config file.
 
   Scenario: A config file exists and is overwritten
-    Given a file named "init.vim" with:
+    Given a file named "config.json" with:
     """
     This will be overwritten.
     """
-    And a file named "init.vim.md" with:
+    And a file named "config.json.md" with:
     """
-    # init.vim.md
+    # My Config
 
-    ```
-    " set character encoding
-    scriptencoding utf-8
-    set encoding=utf-8
-    " set leader to space
-    let mapleader = " "
-    ```
-    """
-    When I run `extract-config-from-markdown --markdown-file init.vim.md --config-file init.vim`
-    Then the exit status should be 0
-    Then the file "init.vim" should contain:
-    """
-    " set character encoding
-    scriptencoding utf-8
-    set encoding=utf-8
-    " set leader to space
-    let mapleader = " "
-    """
-
-  Scenario: A config file does not exist and is created anew
-    Given a file named "init.vim.md" with:
-    """
-    # init.vim.md
-
-    ## Character Encoding
-
-    ```
-    scriptencoding utf-8
-    set encoding=utf-8
-    ```
-
-    ## Leader
-
-    I use space!
-
-    ```
-    let mapleader = " "
-    ```
-    """
-    When I run `extract-config-from-markdown --markdown-file init.vim.md --config-file init.vim`
-    Then the exit status should be 0
-    Then the file "init.vim" should contain:
-    """
-    scriptencoding utf-8
-    set encoding=utf-8
-    let mapleader = " "
-    """
-
-  Scenario: A config file does not exist and is created anew
-    Given a file named "config.json.md" with:
-    """
-    # config.json
-
-    This is my eslint config!
+    This is my editor config.
 
     ```
     {
     ```
 
-    ## Parser Options
+    ## Display values
 
-    I like JSX!
+    I like the color red.
 
-    ```
-        "parserOptions": {
-            "ecmaVersion": 6,
-            "sourceType": "module",
-            "ecmaFeatures": {
-                "jsx": true
-            }
-        },
-    ```
-
-    ## Rules
-
-    When it comes to rules, I'm pretty intense!
+    I like syntax highlighting.
 
     ```
-        "rules": {
+      "color": "red",
+      "syntax_highlight": true,
     ```
 
-    ### Semicolons
+    ## Command values
 
-    It's an error unless you're always using semi-colons.
-
-    ```
-            "semi": ["error", "always"],
-    ```
-
-    ### Quotes
-
-    It's an error if you don't use double quotes.
+    I like to save some of the time.
 
     ```
-            "quotes": ["error", "double"]
-        }
+      "saveOnClose": true,
+      "saveOnTabSwitch": false
+    ```
+
+    # In closing
+
+    ```
     }
     ```
     """
@@ -117,17 +50,14 @@ Feature: extract-config-from-markdown
     Then the exit status should be 0
     Then the file "config.json" should contain:
     """
+    // My Config
     {
-        "parserOptions": {
-            "ecmaVersion": 6,
-            "sourceType": "module",
-            "ecmaFeatures": {
-                "jsx": true
-            }
-        },
-        "rules": {
-            "semi": ["error", "always"],
-            "quotes": ["error", "double"]
-        }
+      // Display values
+      "color": "red",
+      "syntax_highlight": true,
+      // Command values
+      "saveOnClose": true,
+      "saveOnTabSwitch": false
+    // In closing
     }
     """
