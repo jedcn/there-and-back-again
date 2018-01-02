@@ -1,7 +1,7 @@
 {
   "name": "there-and-back-again",
-  "version": "0.1.1",
-  "description": "Two-way literate programming between markdown and config files.",
+  "version": "0.2.0",
+  "description": "Two-way literate programming between markdown and json config files.",
   "main": "index.js",
   "scripts": {
     "ci-report-coverage": "codeclimate-test-reporter < coverage/lcov.info",
